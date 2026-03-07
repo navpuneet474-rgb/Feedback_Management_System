@@ -1,0 +1,20 @@
+# Interview preparation file
+INTERVIEW_PREP.md
+
+# Scheduler script
+sheduler.py
+
+# Environment variables
+.env
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+# VS Code
+.vscode/
+.github

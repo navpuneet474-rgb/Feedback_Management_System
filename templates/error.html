@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8d7da;
+            color: #721c24;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            font-size: 50px;
+        }
+        p {
+            font-size: 18px;
+        }
+        .error-code {
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            font-size: 18px;
+            color: white;
+            background-color: #721c24;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .button:hover {
+            background-color: #a71d2a;
+        }
+    </style>
+</head>
+<body>
+    <h1>Something went wrong!</h1>
+    <p class="error-code">Error Code: 500</p>
+    <p>An unexpected error occurred. Please try again later.</p>
+    <p>If the problem persists, <a href="/">click here to return to the homepage</a>.</p>
+    <a href="javascript:history.back()" class="button">Go Back</a>
+</body>
+</html>
+

@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sitare University Feedback Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: #ffffff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 7px 5%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-link {
+            background-color: #4a90e2;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            cursor: pointer;
+            margin-left: auto;
+            display: inline-block;
+        }
+
+        .nav-link:hover:hover {
+            background-color: #357ABD;
+            /* Slightly darker on hover */
+            transform: scale(1.05);
+            /* Slight hover scaling effect */
+        }
+
+        .nav-link:focus {
+            outline: none;
+        }
+
+
+        .logo-title {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo img {
+            height: 72px;
+            transition: transform 0.3s ease;
+            margin-left: -60px;
+        }
+
+        .logo img:hover {
+            transform: scale(1.05);
+        }
+
+        .title {
+            font-size: 38px;
+            font-weight: 600;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            margin: 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+            padding-left: 215px;
+        }
+
+
+        /* .nav-link {
+            font-size: 18px;
+            font-weight: 400;
+            color: #2c3e50;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #3498db;
+        } */
+
+        .main-container {
+            flex-grow: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px 20px;
+        }
+
+        .content-container {
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #2c3e50;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        p {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: #34495e;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .button {
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            border-radius: 8px;
+            background-color: #4a90e2;
+            /* A shade of blue that matches the logout button */
+            color: white;
+            transition: all 0.3s ease;
+            width: 100%;
+            border-radius: 19px;
+            max-width: 250px;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
+
+        .button:hover {
+            background-color: #357ABD;
+            /* Slightly darker shade for hover state */
+            transform: translateY(-2px);
+            box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+        }
+
+        .button:active {
+            transform: translateY(1px);
+        }
+
+        .button-primary {
+            background-color: #4a90e2;
+            /* Keep the primary action button blue */
+        }
+
+        .button-primary:hover {
+            background-color: #495765;
+        }
+
+        .button-secondary {
+            background-color: #495765;
+            /* A neutral gray for secondary actions */
+        }
+
+        #formAvailabilityMessage {
+            font-size: 16px;
+            color: #e74c3c;
+            margin-top: 20px;
+            font-weight: 600;
+        }
+
+        footer {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 20px 5%;
+            text-align: center;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-text p {
+            margin: 5px 0;
+            color: #ffffff;
+        }
+
+        .footer-logo img {
+            display: block;
+        }
+
+        @media (max-width: 1024px) {
+            .title {
+                font-size: 28px;
+                padding-left: 20px;
+            }
+
+            .logo img {
+                height: 60px;
+                margin-left: -30px;
+            }
+
+            .content-container {
+                max-width: 90%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: center;
+                padding: 15px 5%;
+            }
+
+            .logo-title {
+                flex-direction: column;
+                align-items: center;
+                margin-bottom: 15px;
+                gap: 0;
+            }
+
+            .logo img {
+                height: 50px;
+                margin-left: 0;
+            }
+
+            .title {
+                font-size: 24px;
+                padding-left: 0;
+                text-align: center;
+                margin-top: 10px;
+            }
+
+            .nav-link {
+                font-size: 16px;
+                padding: 0.4rem 0.8rem;
+                margin-left: auto;
+                /* Slightly reduce padding on smaller screens */
+            }
+
+            .content-container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 28px;
+            }
+
+            p {
+                font-size: 16px;
+            }
+
+            .button {
+                font-size: 16px;
+                padding: 12px 25px;
+                max-width: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 10px 5%;
+            }
+
+            .logo img {
+                height: 50px;
+                margin-left: -170px;
+            }
+
+            .title {
+                font-size: 20px;
+            }
+
+            .nav-link {
+                padding: 0.3rem 0.6rem;
+                /* Further reduction for very small screens */
+                font-size: 0.8rem;
+                /* Smaller font size on mobile */
+                margin-left: auto;
+                /* Remove margin-left on mobile to fit better */
+            }
+
+            .main-container {
+                padding: 20px 10px;
+            }
+
+            .content-container {
+                padding: 20px 15px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            p {
+                font-size: 14px;
+            }
+
+            .button {
+                font-size: 14px;
+                padding: 10px 20px;
+                max-width: 200px;
+            }
+
+            .footer-text {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .title {
+                font-size: 18px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+
+            .button {
+                font-size: 13px;
+                padding: 8px 16px;
+                max-width: 180px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <div class="logo-title">
+            <div class="logo">
+                <img src="./static/Sitare-University-Logo.webp" alt="Sitare University Logo">
+            </div>
+            <div class="title">Student Feedback Portal</div>
+        </div>
+        <nav class="nav-links">
+            <a href="{{ url_for('logout') }}" class="nav-link">Logout</a>
+        </nav>
+    </header>
+
+    <div class="main-container">
+        <div class="content-container">
+            <h1>Speak Your Truth: Shape the Future Together!</h1>
+            <p>Your voice matters. Help us improve our university experience.</p>
+
+            <div class="button-container">
+                <a id="fillFormButton" class="button button-primary" style="display: none;" href="/student_portal">Share
+                    Your
+                    Feedback</a>
+                <a class="button button-secondary" href="/previous_feedback">View Previous Feedback</a>
+            </div>
+            <p id="formAvailabilityMessage"></p>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-text">
+                <p>© 2024 Sitare University. All rights reserved.</p>
+                <p>Temporary Campus: SRMCEM Lucknow, India</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        window.onload = function () {
+            var today = new Date();
+            var dayOfWeek = today.getUTCDay();
+            var fillFormButton = document.getElementById("fillFormButton");
+            var formAvailabilityMessage = document.getElementById("formAvailabilityMessage");
+            var feedbackSubmitted = {{ 'true' if feedback_submitted else 'false' }};
+
+            if (feedbackSubmitted) {
+                formAvailabilityMessage.textContent = "Thank you! You have already submitted your feedback today.";
+                formAvailabilityMessage.style.color = "#27ae60";
+            } else if (dayOfWeek === 1 || dayOfWeek === 6 || dayOfWeek === 5) { // 6 corresponds to Saturday and 5 corresponds to friday and 0 for sunday
+                fillFormButton.style.display = "block";
+                formAvailabilityMessage.textContent = "The feedback form is available today. Don't miss this opportunity to share your thoughts!";
+            } else {
+                formAvailabilityMessage.textContent = "The feedback form is only available on Friday & Saturday. Please check back on the weekend.";
+            }
+        };
+    </script>
+</body>
+
+</html>

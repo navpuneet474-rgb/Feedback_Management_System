@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Feedback Management System - Sitare University</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Montserrat", sans-serif;
+      }
+
+      .header {
+        background-image: linear-gradient(to bottom, #f2f2f2, #cccccc);
+        padding: 10px 20px;
+        position: sticky;
+        top: 0;
+        display: grid;
+        align-items: center;
+        z-index: 1000;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        grid-template-columns: auto 1fr auto;
+      }
+
+      .header img {
+        height: 83px;
+      }
+
+      .header h3 {
+        font-size: 34px;
+        color: black;
+        font-weight: bold;
+        margin: 0;
+        text-align: center;
+      }
+
+      .navbar-nav {
+        display: flex;
+        align-items: center;
+        margin-right: 20px;
+      }
+
+      .nav-link {
+        font-size: 1rem;
+        color: #333;
+        padding: 0.625em 1em;
+        transition: all 0.3s ease;
+        border-radius: 12px;
+        text-decoration: none;
+        display: inline-block;
+        font-weight: normal;
+        text-align: center;
+      }
+
+      .nav-link:hover {
+        background-color: #e0e0e0;
+        color: #000;
+        transform: translateY(-3px);
+        font-weight: bold;
+      }
+
+      .slideshow-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .mySlides {
+        display: none;
+      }
+
+      .mySlides img {
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+      }
+
+      .prev,
+      .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        padding: 16px;
+        margin-top: -22px;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      a:not([href]):not([tabindex]) {
+        color: white;
+        text-decoration: none;
+      }
+
+      .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+      }
+
+      .prev:hover,
+      .next:hover {
+        background-color: rgba(0, 0, 0, 0.8);
+      }
+
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1.25rem;
+        margin-top: 1.25rem;
+        width: 100%;
+        max-width: 1050px;
+      }
+
+      .btn-77 {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.8rem 1.5rem;
+        border-radius: 50px;
+        background: #2c3e50;
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 1.125rem;
+        border: none;
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        max-width: 263px;
+        cursor: pointer;
+        text-decoration: none;
+        transition:
+          transform 0.4s ease,
+          box-shadow 0.4s ease;
+      }
+
+      .btn-77:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+      }
+
+      .btn-77:active {
+        transform: translateY(-1px);
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .btn-77 img {
+        margin-right: 12px;
+        width: 28px;
+        height: 28px;
+      }
+
+      .footer {
+        text-align: center;
+        margin-top: 50px;
+        padding: 20px;
+        background-color: #2c3e50;
+        color: white;
+      }
+
+      .dot {
+        height: 12px;
+        width: 12px;
+        margin: 0 5px;
+        background-color: #bbb;
+        border-radius: 50%;
+        display: inline-block;
+        transition: background-color 0.6s ease;
+      }
+
+      .active,
+      .dot:hover {
+        background-color: #717171;
+      }
+
+      @media (max-width: 1024px) {
+        .header {
+          padding: 12px 20px;
+        }
+
+        .header img {
+          height: 70px;
+        }
+
+        .header h3 {
+          font-size: 28px;
+          margin-left: 5vw;
+        }
+
+        .navbar-nav {
+          margin-right: 15px;
+        }
+
+        .nav-link {
+          font-size: 16px;
+          padding: 8px 12px;
+        }
+
+        .slideshow-container {
+          max-width: 90%;
+        }
+
+        .mySlides img {
+          height: 400px;
+        }
+
+        .btn-77 {
+          max-width: 240px;
+          font-size: 16px;
+          padding: 12px 24px;
+        }
+      }
+
+      @media (max-width: 768px) {
+        /* Header becomes stacked */
+        .header {
+          display: grid;
+          grid-template-columns: 1fr;
+          text-align: center;
+          padding: 15px 10px;
+        }
+
+        .logo {
+          display: flex;
+          justify-content: center;
+          margin-bottom: 6px;
+        }
+
+        .header img {
+          height: 60px;
+          margin-bottom: 5px;
+        }
+
+        .header h3 {
+          font-size: 22px;
+          margin: 5px 0;
+          text-align: center;
+        }
+
+        .navbar-nav {
+          display: flex;
+          justify-content: center;
+          margin: 5px 0 0 0;
+        }
+
+        .nav-link {
+          font-size: 15px;
+          padding: 8px 12px;
+        }
+
+        .mySlides img {
+          height: 350px;
+        }
+
+        .btn-77 {
+          max-width: 220px;
+          font-size: 15px;
+          padding: 10px 20px;
+          margin-left: 0; /* important fix */
+        }
+
+        .container {
+          justify-content: center;
+          padding: 15px;
+        }
+
+        .prev,
+        .next {
+          padding: 12px;
+          font-size: 16px;
+        }
+
+        .dot {
+          height: 10px;
+          width: 10px;
+          margin: 0 4px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .header {
+          padding: 10px;
+          background-color: #f8f9fa;
+          border-bottom: 1px solid #e0e0e0;
+        }
+
+        .header img {
+          height: 45px;
+        }
+
+        .header h3 {
+          font-size: 18px;
+          margin-bottom: 8px;
+        }
+
+        .navbar-nav {
+          width: 100%;
+          flex-direction: row;
+          justify-content: center;
+        }
+
+        .nav-link {
+          font-size: 14px;
+          padding: 6px 10px;
+          margin: 0 5px;
+        }
+
+        .mySlides img {
+          height: 200px;
+        }
+
+        .prev,
+        .next {
+          padding: 8px;
+          font-size: 14px;
+        }
+
+        .btn-77 {
+          max-width: 200px;
+          font-size: 14px;
+          padding: 10px 18px;
+        }
+
+        .btn-77 img {
+          width: 20px;
+          height: 20px;
+          margin-right: 8px;
+        }
+
+        .footer {
+          padding: 12px;
+          font-size: 11px;
+        }
+
+        .dot {
+          height: 8px;
+          width: 8px;
+          margin: 0 3px;
+        }
+      }
+
+      /* Add smooth transitions for a more polished feel */
+      @media (prefers-reduced-motion: no-preference) {
+        * {
+          transition: all 0.3s ease;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="logo d-flex align-items-center">
+        <img src="./static/Sitare-University-Logo.webp" alt="Logo" />
+      </div>
+      <h3>Feedback Management Portal</h3>
+      <ul class="navbar-nav ml-auto">
+        <li>
+          <a class="nav-link" href="/about_us">About Us</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="slideshow-container">
+      <div class="mySlides">
+        <img src="./static/slides1.jpg" alt="University Group Photo" />
+      </div>
+      <div class="mySlides">
+        <img src="./static/slides2.jpg" alt="Batch(2023-2027)" />
+      </div>
+      <div class="mySlides">
+        <img src="./static/slides3.jpg" alt="Batch(2023-2027)" />
+      </div>
+      <div class="mySlides">
+        <img src="./static/slides4.jpg" alt="Semester End photo" />
+      </div>
+      <div class="mySlides">
+        <img src="./static/slides5.jpg" alt="Semester End photo" />
+      </div>
+      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+      <a class="next" onclick="plusSlides(1)">&#10095;</a>
+    </div>
+    <br />
+    <div style="text-align: center">
+      <span class="dot" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+      <span class="dot" onclick="currentSlide(3)"></span>
+      <span class="dot" onclick="currentSlide(4)"></span>
+      <span class="dot" onclick="currentSlide(5)"></span>
+    </div>
+
+    <div class="container">
+      <a
+        href="/login"
+        style="text-decoration: none; width: 100%; max-width: 300px"
+      >
+        <button class="btn-77">
+          <img src="./static/google-icon.png" alt="Google logo" class="mr-2" />
+          Login with Google
+        </button>
+      </a>
+    </div>
+
+    <footer>
+      <div class="footer text-center text-lg-start mt-5">
+        <p>© 2024 Sitare University. All rights reserved.</p>
+        <span>Temporary Campus: SRMCEM Lucknow, India</span>
+      </div>
+    </footer>
+
+    <script>
+      let slideIndex = 0;
+      let slideInterval;
+
+      showSlides();
+
+      function showSlides() {
+        let slides = document.getElementsByClassName("mySlides");
+        for (let i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) {
+          slideIndex = 1;
+        }
+        slides[slideIndex - 1].style.display = "block";
+
+        // Clear any existing interval and set a new one
+        clearInterval(slideInterval);
+        slideInterval = setInterval(showSlides, 3000);
+      }
+
+      function plusSlides(n) {
+        clearInterval(slideInterval); // Clear the interval
+        slideIndex += n - 1;
+        if (slideIndex > document.getElementsByClassName("mySlides").length) {
+          slideIndex = 1;
+        } else if (slideIndex < 1) {
+          slideIndex = document.getElementsByClassName("mySlides").length;
+        }
+        showSlides();
+      }
+
+      // Stop the slideshow when the user interacts with it
+      document
+        .querySelector(".slideshow-container")
+        .addEventListener("mouseover", function () {
+          clearInterval(slideInterval);
+        });
+
+      // Resume the slideshow when the user stops interacting
+      document
+        .querySelector(".slideshow-container")
+        .addEventListener("mouseout", function () {
+          slideInterval = setInterval(showSlides, 3000);
+        });
+    </script>
+  </body>
+</html>

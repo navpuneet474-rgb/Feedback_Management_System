@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enhanced Teacher Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.24/css/dataTables.bootstrap4.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h2 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+
+        .home-button {
+            background-color: #fff;
+            color: #4a90e2;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .home-button:hover {
+            background-color: #f0f2f5;
+            transform: translateY(-2px);
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            font-weight: 600;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+
+        .table-container {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .table th {
+            background-color: #4a90e2;
+            color: white;
+        }
+
+        .btn-primary {
+            background-color: #4a90e2;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #3a7bc8;
+        }
+
+        canvas {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Animation for cards */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translate3d(0, 40px, 0);
+            }
+            to {
+                opacity: 1;
+                transform: translate3d(0, 0, 0);
+            }
+        }
+
+        .animated {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+        }
+
+        .fadeInUp {
+            animation-name: fadeInUp;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .header {
+                text-align: center;
+                padding: 15px;
+            }
+
+            .header h2 {
+                font-size: 2rem;
+            }
+
+            .home-button {
+                margin-top: 10px;
+                display: block;
+                width: 100%;
+            }
+
+            .card-header h3 {
+                font-size: 1.5rem;
+            }
+
+            .table-container {
+                padding: 10px;
+            }
+
+            .table th, .table td {
+                font-size: 0.9rem;
+            }
+
+            .btn {
+                font-size: 0.9rem;
+                padding: 0.375rem 0.75rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header h2 {
+                font-size: 1.8rem;
+            }
+
+            .card-header h3 {
+                font-size: 1.3rem;
+            }
+
+            .table-container {
+                overflow-x: auto;
+            }
+
+            .table th, .table td {
+                font-size: 0.8rem;
+            }
+
+            .btn {
+                font-size: 0.8rem;
+                padding: 0.25rem 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <h2><i class="fas fa-chalkboard-teacher mr-2"></i>Teacher Portal</h2>
+
+            <div class="d-flex align-items-center mt-3 mt-md-0">
+                {% if manage_courses %}
+                <!-- <a href="{{ url_for('course_manager') }}" class="btn btn-primary mr-3">
+                    <i class="fas fa-cogs mr-1"></i>Manage Courses
+                </a> -->
+                {% endif %}
+                <a href="/logout" class="home-button">
+                    <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                </a>
+            </div>
+        </div>
+
+        <div class="card animated fadeInUp">
+            <div class="card-body">
+                <h3><i class="fas fa-user mr-2"></i>Welcome, {{ user_info.name.split()[0] }}!</h3>
+            </div>
+        </div>
+
+        <div class="card animated fadeInUp">
+            <div class="card-header">
+                <h3><i class="fas fa-question-circle mr-2"></i>Feedback Questions</h3>
+            </div>
+            <div class="card-body">
+                <p><strong>Question 1:</strong> How well did you understand the concepts covered this week?</p>
+                <p><strong>Question 2:</strong> How well are you able to solve the given practice problems?</p>
+            </div>
+        </div>
+
+        <div class="table-container animated fadeInUp">
+            <h2 class="text-center mb-4"><i class="fas fa-chart-bar mr-2"></i>Feedback Summary</h2>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Course Name</th>
+                            <th>Date</th>
+                            <th>Week</th>
+                            <th>Q1 Avg Rating</th>
+                            <th>Q2 Avg Rating</th>
+                            <th>Feedback Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for course, data in course_summaries.items() %}
+                        {% for week, avg_ratings in data.avg_ratings.items() %}
+                        <tr>
+                            <td>{{ data.course_name }}</td>
+                            <td>{{ data.latest_date }}</td>
+                            <td>{{ week }}</td>
+                            <td>{{ avg_ratings[0]|round(2) }}</td>
+                            <td>{{ avg_ratings[1]|round(2) }}</td>
+                            <td>{{ avg_ratings[2] }}</td>
+                        </tr>
+                        {% endfor %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card animated fadeInUp">
+            <div class="card-header">
+                <h2 class="text-center"><i class="fas fa-chart-pie mr-2"></i>Ratings Overview for the Last Two Weeks</h2>
+            </div>
+            <div class="card-body">
+                {% for course, data in course_summaries.items() %}
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h4>{{ data.course_name }} - Question 1</h4>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="ratingPieChartQ1_{{ course }}"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-header">
+                                <h4>{{ data.course_name }} - Question 2</h4>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="ratingPieChartQ2_{{ course }}"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <h2 class="text-center mb-4"><i class="fas fa-comments mr-2"></i>Course-wise Individual Feedback</h2>
+        {% for course, data in course_summaries.items() %}
+        <div class="table-container animated fadeInUp">
+            <h3 class="text-center mb-4">{{ data.course_name }}</h3>
+            <div class="filter-container mb-3">
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="min-rating-{{ course }}"><i class="fas fa-star mr-2"></i>Rating:</label>
+                        <select id="min-rating-{{ course }}" class="form-control">
+                            <option value="">All Ratings</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="week-filter-{{ course }}"><i class="fas fa-calendar-week mr-2"></i>Week:</label>
+                        <select id="week-filter-{{ course }}" class="form-control">
+                            <option value="">All Weeks</option>
+                            <!-- Weeks will be populated dynamically -->
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <label for="remarks-filter-{{ course }}"><i class="fas fa-comment mr-2"></i>Remarks:</label>
+                        <select id="remarks-filter-{{ course }}" class="form-control">
+                            <option value="">All</option>
+                            <option value="with-remarks">With Remarks</option>
+                            <option value="without-remarks">Without Remarks</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive">
+                <table id="feedback-table-{{ course }}" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Name</th>
+                            <th>Week</th>
+                            <th>Q1 Rating</th>
+                            <th>Q2 Rating</th>
+                            <th>Remarks</th>
+                            <th>Send Message</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in feedback_data %}
+                        {% if row[0] == course %}
+                        <tr>
+                            <td>{{ row[1] }}</td>
+                            <td>{{ row[2] }}</td>
+                            <td>{{ row[3] }}</td>
+                            <td>{{ row[4] if row[4] is not none else 0 }}</td>
+                            <td>{{ row[5] if row[5] is not none else 0 }}</td>
+                            <td>{{ row[6] }}</td>
+                            <td>
+                                <a href="mailto:{{ row[7] }}?subject=Feedback&body=Dear Student," class="btn btn-primary btn-sm">
+                                    <i class="fas fa-envelope mr-2"></i>Message
+                                </a>
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <footer class="bg-light text-center text-lg-start mt-5 py-3">
+        <div class="container">
+            <p class="mb-0">&copy; 2024 Sitare University. All rights reserved.</p>
+            <p class="mb-0"><i class="fas fa-map-marker-alt mr-2"></i>Temporary Campus: SRMCEM Lucknow, India</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.24/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const charts = {};
+    
+            const fetchData = async () => {
+                try {
+                    const response = await fetch('/teacher_portal?data=json');
+                    const data = await response.json();
+                    console.log(data);
+                    renderCharts(data);
+                } catch (error) {
+                    console.error('There was a problem with the fetch operation:', error);
+                    alert('Failed to load data. Please try again later.');
+                }
+            };
+    
+            const renderCharts = (data) => {
+                for (const [course, courseData] of Object.entries(data)) {
+                    createPieChart(`ratingPieChartQ1_${course}`, courseData.distribution_q1, `${course} - Question 1`);
+                    createPieChart(`ratingPieChartQ2_${course}`, courseData.distribution_q2, `${course} - Question 2`);
+                }
+            };
+    
+            const createPieChart = (canvasId, distributionData, title) => {
+                const ctx = document.getElementById(canvasId).getContext('2d');
+    
+                if (charts[canvasId]) {
+                    charts[canvasId].destroy();
+                }
+    
+                const ratingPieData = {
+                    labels: ['1', '2', '3', '4', '5'],
+                    datasets: [{
+                        label: 'Rating Distribution',
+                        data: Object.values(distributionData),
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                };
+    
+                const ratingPieOptions = {
+                    responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: title,
+                            font: {
+                                size: 16,
+                                weight: 'bold',
+                                color: '#007bff'
+                            }
+                        },
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    // Get the number of students and the rating
+                                    const students = context.raw;
+                                    const rating = context.label;
+                                    // Format the tooltip label
+                                    return `${students} students - ${rating} rating`;
+                                },
+                                title: function() {
+                                    return ''; // Hide the default title
+                                }
+                            }
+                        }
+                    }
+                };
+    
+                charts[canvasId] = new Chart(ctx, {
+                    type: 'pie',
+                    data: ratingPieData,
+                    options: ratingPieOptions
+                });
+            };
+    
+            {% for course, data in course_summaries.items() %}
+            const table_{{ course }} = $('#feedback-table-{{ course }}').DataTable({
+                lengthMenu: [5, 10, 25, 50],
+                pageLength: 5,
+                responsive: true,
+            });
+    
+            $('#min-rating-{{ course }}').on('change', function () {
+                const rating = $(this).val();
+                table_{{ course }}.column(3).search(rating).draw();
+                table_{{ course }}.column(4).search(rating).draw();
+            });
+    
+            $('#week-filter-{{ course }}').on('change', function () {
+                const week = $(this).val();
+                table_{{ course }}.column(2).search(week).draw();
+            });
+    
+            $('#remarks-filter-{{ course }}').on('change', function () {
+                const remarksFilter = $(this).val();
+                if (remarksFilter === 'with-remarks') {
+                    table_{{ course }}.column(5).search('.+', true, false).draw();
+                } else if (remarksFilter === 'without-remarks') {
+                    table_{{ course }}.column(5).search('^$', true, false).draw();
+                } else {
+                    table_{{ course }}.column(5).search('').draw();
+                }
+            });
+            {% endfor %}
+    
+            fetchData();
+            
+        });
+    </script>    
+</body>
+</html>    

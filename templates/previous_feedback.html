@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Feedback Portal</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4a90e2;
+            --secondary-color: #f5a623;
+            --background-color: #f0f4f8;
+            --card-bg-color: #ffffff;
+            --text-color: #333333;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-size: 16px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .header {
+            background-color: #2c7dce;
+            color: white;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            text-align: center;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            /* Space between title and button */
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 2rem;
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .logout-btn {
+            background-color: #4a90e2;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        .logout-btn:hover {
+            background-color: #4a90e2;
+            /* Darker shade on hover */
+        }
+
+        .logout-btn:focus {
+            outline: none;
+        }
+
+        .alert {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 1rem;
+            border-radius: 5px;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .card {
+            background-color: var(--card-bg-color);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-control {
+            width: 80%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+            width: auto;
+        }
+
+        .btn:hover {
+            background-color: #3a7bd5;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background-color: var(--card-bg-color);
+            box-shadow: var(--shadow);
+        }
+
+        th,
+        td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f8f8f8;
+        }
+
+        footer {
+            background-color:#2c3e50;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .icon {
+            margin-right: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 14px;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .card {
+                padding: 0.75rem;
+            }
+
+            .card h3 {
+                font-size: 1.25rem;
+            }
+
+            .btn {
+                padding: 0.5rem 1rem;
+            }
+
+            th,
+            td {
+                padding: 0.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                flex-direction: column;
+                /* Stack items vertically */
+                align-items: center;
+                /* Center align items */
+            }
+
+            .header h1 {
+                font-size: 1.25rem;
+                margin-bottom: 0.5rem;
+                /* Add margin to separate from logout button */
+            }
+
+            .logout-btn {
+                margin-left: 0;
+                /* Remove left margin */
+                width: 25%;
+                /* Full width for better tap target */
+                padding: 0.5rem;
+                /* Adjust padding as necessary */
+            }
+
+            .card h3 {
+                font-size: 1.1rem;
+            }
+
+            .btn {
+                padding: 0.5rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <h1>Student Previous Response Portal</h1>
+        <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+    </header>
+
+    <div class="container">
+        {% if not is_feedback_allowed %}
+        <div class="alert">
+        </div>
+        {% endif %}
+
+        <div class="card">
+            <h3><i class="fas fa-question-circle icon"></i>Feedback Questions</h3>
+            <p><strong>Question 1:</strong> How well did you understand the concepts covered this week?</p>
+            <p><strong>Question 2:</strong> How well are you able to solve the given practice problems?</p>
+        </div>
+
+        <div class="card">
+            <h3>Your Previous Data</h3>
+            <form method="POST" action="{{ url_for('previous_feedback') }}">
+                <div class="form-group">
+                    <label for="num_feedback">Select Number of Feedback Entries:</label>
+                    <select class="form-control" id="num_feedback" name="num_feedback" required>
+                        <option value="0" selected>No Data</option>
+                        <option value="1">Last 1 week</option>
+                        <option value="3">Last 3 weeks</option>
+                        <option value="5">Last 5 weeks</option>
+                        <option value="all">All Data</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn">Submit</button>
+            </form>
+        </div>
+
+        {% if feedback_data %}
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Course Code</th>
+                        <th>Date of Feedback</th>
+                        <th>Week</th>
+                        <th>Q1 Rating</th>
+                        <th>Q2 Rating</th>
+                        <th>Remarks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for feedback in feedback_data %}
+                    <tr>
+                        <td>{{ feedback[0] }}</td>
+                        <td>{{ feedback[1] }}</td>
+                        <td>{{ feedback[2] }}</td>
+                        <td>{{ feedback[3] }}</td>
+                        <td>{{ feedback[4] }}</td>
+                        <td>{{ feedback[5] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>© 2024 Sitare University. All rights reserved.</p>
+        <p><i class="fas fa-map-marker-alt icon"></i>Temporary Campus: SRMCEM Lucknow, India</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+</body>
+
+</html>
