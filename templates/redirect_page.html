@@ -239,10 +239,12 @@
             }
 
             .logo-title {
-                flex-direction: column;
+                flex-direction: row;
                 align-items: center;
                 margin-bottom: 15px;
-                gap: 0;
+                gap: 15px;
+                width: 100%;
+                justify-content: center;
             }
 
             .logo img {
@@ -251,17 +253,16 @@
             }
 
             .title {
-                font-size: 24px;
+                font-size: 20px;
                 padding-left: 0;
                 text-align: center;
-                margin-top: 10px;
+                margin-top: 0;
             }
 
             .nav-link {
                 font-size: 16px;
                 padding: 0.4rem 0.8rem;
-                margin-left: auto;
-                /* Slightly reduce padding on smaller screens */
+                margin-left: 0;
             }
 
             .content-container {
@@ -289,21 +290,18 @@
             }
 
             .logo img {
-                height: 50px;
-                margin-left: -170px;
+                height: 40px;
+                margin-left: 0;
             }
 
             .title {
-                font-size: 20px;
+                font-size: 16px;
             }
 
             .nav-link {
                 padding: 0.3rem 0.6rem;
-                /* Further reduction for very small screens */
                 font-size: 0.8rem;
-                /* Smaller font size on mobile */
-                margin-left: auto;
-                /* Remove margin-left on mobile to fit better */
+                margin-left: 0;
             }
 
             .main-container {
@@ -330,6 +328,11 @@
 
             .footer-text {
                 font-size: 12px;
+            }
+            
+            .logo-title {
+                flex-direction: column;
+                gap: 10px;
             }
         }
 
@@ -382,7 +385,7 @@
     <footer>
         <div class="footer-content">
             <div class="footer-text">
-                <p>© 2024 Sitare University. All rights reserved.</p>
+                <p>© 2025 Sitare University. All rights reserved.</p>
                 <p>Temporary Campus: SRMCEM Lucknow, India</p>
             </div>
         </div>
@@ -397,15 +400,20 @@
             var formAvailabilityMessage = document.getElementById("formAvailabilityMessage");
             var feedbackSubmitted = {{ 'true' if feedback_submitted else 'false' }};
 
-            if (feedbackSubmitted) {
-                formAvailabilityMessage.textContent = "Thank you! You have already submitted your feedback today.";
-                formAvailabilityMessage.style.color = "#27ae60";
-            } else if (dayOfWeek === 1 || dayOfWeek === 6 || dayOfWeek === 5) { // 6 corresponds to Saturday and 5 corresponds to friday and 0 for sunday
-                fillFormButton.style.display = "block";
-                formAvailabilityMessage.textContent = "The feedback form is available today. Don't miss this opportunity to share your thoughts!";
-            } else {
-                formAvailabilityMessage.textContent = "The feedback form is only available on Friday & Saturday. Please check back on the weekend.";
-            }
+            // TESTING: Comment out to always show the button
+            // if (feedbackSubmitted) {
+            //     formAvailabilityMessage.textContent = "Thank you! You have already submitted your feedback today.";
+            //     formAvailabilityMessage.style.color = "#27ae60";
+            // } else if (dayOfWeek === 1 || dayOfWeek === 6 || dayOfWeek === 5) { // 6 corresponds to Saturday and 5 corresponds to friday and 0 for sunday
+            //     fillFormButton.style.display = "block";
+            //     formAvailabilityMessage.textContent = "The feedback form is available today. Don't miss this opportunity to share your thoughts!";
+            // } else {
+            //     formAvailabilityMessage.textContent = "The feedback form is only available on Friday & Saturday. Please check back on the weekend.";
+            // }
+
+            fillFormButton.style.display = "block";
+            formAvailabilityMessage.textContent = "TESTING MODE: The feedback form is available for testing. You can submit multiple times.";
+            formAvailabilityMessage.style.color = "#e67e22"; // Orange color for testing mode
         };
     </script>
 </body>

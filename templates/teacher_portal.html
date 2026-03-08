@@ -37,18 +37,22 @@
         }
 
         .home-button {
-            background-color: #fff;
-            color: #4a90e2;
-            border: none;
+            background: #000;
+            color: white;
+            border: 2px solid #000;
             padding: 10px 20px;
-            border-radius: 5px;
+            border-radius: 25px;
             font-weight: 600;
             transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         .home-button:hover {
-            background-color: #f0f2f5;
+            background: #fff;
+            color: #000;
             transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            border: 2px solid #000;
         }
 
         .card {
@@ -211,6 +215,9 @@
                     <i class="fas fa-cogs mr-1"></i>Manage Courses
                 </a> -->
                 {% endif %}
+                <a href="/about_us" class="home-button mr-2">
+                    <i class="fas fa-info-circle mr-2"></i>About Us
+                </a>
                 <a href="/logout" class="home-button">
                     <i class="fas fa-sign-out-alt mr-2"></i>Logout
                 </a>
@@ -371,7 +378,7 @@
 
     <footer class="bg-light text-center text-lg-start mt-5 py-3">
         <div class="container">
-            <p class="mb-0">&copy; 2024 Sitare University. All rights reserved.</p>
+            <p class="mb-0">&copy; 2025 Sitare University. All rights reserved.</p>
             <p class="mb-0"><i class="fas fa-map-marker-alt mr-2"></i>Temporary Campus: SRMCEM Lucknow, India</p>
         </div>
     </footer>

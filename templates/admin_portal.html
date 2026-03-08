@@ -51,23 +51,27 @@
         }
 
         .custom-button {
-            background-color: #e2e9f0;
-            border-radius: 8px;
-            border: none;
-            color: #e91919;
+            background: #000;
+            border-radius: 25px;
+            border: 2px solid #000;
+            color: white;
             cursor: pointer;
             font-size: 16px;
-            font-weight: 500;
+            font-weight: 600;
             padding: 10px 20px;
             text-decoration: none;
-            transition: background-color 200ms ease-in-out;
+            transition: all 0.3s ease;
             margin-left: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         .custom-button:hover {
-            background-color: #0056b3;
-            color: white;
+            background: #fff;
+            color: #000;
             text-decoration: none;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            border: 2px solid #000;
         }
 
         .feedback-container {
@@ -156,8 +160,8 @@
             <h1 class="card-title">Hello, {{ user_info['name'].split()[0] }}!</h1>
             <h2 class="card-subtitle mb-2 text-muted">Welcome to the Admin Portal</h2>
             <div class="button-container">
-                <a href="/" class="custom-button">Home</a>
                 <a href="/about_us" class="custom-button">About Us</a>
+                <a href="/logout" class="custom-button">Logout</a>
             </div>
         </div>
     </div>
@@ -189,6 +193,13 @@
         </table>
     </div>
     {% endfor %}
+
+    <footer class="bg-light text-center text-lg-start mt-5 py-3" style="background-color: #2c3e50 !important; color: white;">
+        <div class="container">
+            <p class="mb-0" style="color: white;">&copy; 2025 Sitare University. All rights reserved.</p>
+            <p class="mb-0" style="color: white;"><i class="fas fa-map-marker-alt mr-2"></i>Temporary Campus: SRMCEM Lucknow, India</p>
+        </div>
+    </footer>
 </body>
 
 </html>

@@ -69,7 +69,6 @@
             align-items: center;
         }
 
-
         .title-container {
             display: flex;
             flex-direction: column;
@@ -113,6 +112,10 @@
             background-color: #0056b3;
         }
 
+        #logout:hover {
+            background-color: #0056b3;
+        }
+
         .container {
             flex: 1;
             text-align: center;
@@ -146,11 +149,18 @@
         }
 
         .portal-logo {
-            width: 100px;
+            width: 80px;
             height: auto;
             vertical-align: middle;
-            margin-right: 168px;
-            margin-left: 40px;
+            margin-right: 20px;
+            margin-left: 10px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+            transition: transform 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .portal-logo:hover {
+            transform: scale(1.05);
         }
 
         .highlight {
@@ -201,52 +211,138 @@
         #final-submit {
             background-color: #28a745;
             border-color: #28a745;
-            padding: 7px 30px;
-            font-size: 1.5rem;
-            transition: background-color 0.3s ease;
-            margin: 40px;
+            padding: 12px 40px;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+            margin: 40px auto;
+            display: block;
         }
 
-        #final-submit:hover {
+        #final-submit:hover:not(:disabled) {
             background-color: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+        }
+
+        #final-submit:disabled {
+            background-color: #6c757d;
+            border-color: #6c757d;
+            cursor: not-allowed;
+            opacity: 0.6;
         }
 
         #logout {
             background-color: #007bff;
-            border-color: #dc3545;
             color: white;
             padding: 10px 20px;
             font-size: 1rem;
-            position: absolute;
-            top: 10px;
-            right: 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
         #logout:hover {
-            background-color: #c82333;
+            background-color: #0056b3;
+        }
+
+        .about-btn {
+            background: #000;
+            color: white;
+            padding: 10px 20px;
+            border: 2px solid #000;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .about-btn:hover {
+            background: #fff;
+            color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            border: 2px solid #000;
         }
 
         .alert {
             display: none;
         }
 
+        /* Loading Spinner */
+        .loading-spinner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            color: #007bff;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #007bff;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Form Validation Feedback */
+        .form-container.invalid {
+            border: 2px solid #dc3545;
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .validation-message {
+            color: #dc3545;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .validation-message.show {
+            display: block;
+        }
+
+        /* Touch-friendly star rating for mobile */
+        @media (max-width: 768px) {
+            .rating label {
+                font-size: 2.5rem !important;
+                padding: 5px;
+            }
+        }
+
         footer {
-            padding: 20px;
+            padding: 1.5rem 1rem;
             background-color: #2c3e50;
             text-align: center;
             position: relative;
             width: 100%;
             color: white;
-            font-size: 1.2rem;
+            margin-top: 2rem;
         }
 
         footer p,
         footer span {
-            margin: 5px 0;
-            /* Optional: Adjust margin for better spacing */
+            margin: 0.25rem 0;
             text-align: center;
-            /* Ensure text is centered */
+            color: white;
+            font-size: 1rem;
         }
 
         .gap {
@@ -301,24 +397,27 @@
 
             .header-content {
                 flex-direction: column;
-                align-items: flex-start;
+                align-items: center;
             }
 
             .logo-container {
                 margin-bottom: 10px;
+                width: 100%;
+                justify-content: center;
             }
 
             .user-info {
                 width: 100%;
-                justify-content: space-between;
+                justify-content: center;
                 margin-top: 10px;
+                flex-wrap: wrap;
             }
 
             .portal-logo {
                 width: 60px;
                 margin-right: 10px;
                 margin-left: 0;
-                padding-bottom: 97px;
+                padding-bottom: 0;
             }
 
             .highlight {
@@ -363,8 +462,12 @@
             }
 
             footer {
-                padding: 15px;
+                padding: 1.5rem 1rem;
                 font-size: 1rem;
+            }
+            
+            footer p {
+                font-size: 0.9rem;
             }
         }
 
@@ -374,13 +477,13 @@
             }
 
             .highlight {
-                font-size: 22px;
-                padding-top: 27px;
+                font-size: 20px;
+                padding-top: 0;
             }
 
             .tagline {
                 font-size: 14px;
-                padding-right: 74px;
+                padding-right: 0;
             }
 
             .welcome-text {
@@ -396,6 +499,19 @@
                 padding: 8px 16px;
                 font-size: 1.1rem;
             }
+            
+            .logo-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .portal-logo {
+                margin: 0 auto 10px;
+            }
+            
+            .title-container {
+                text-align: center;
+            }
         }
     </style>
 </head>
@@ -404,7 +520,7 @@
     <header class="header">
         <div class="header-content">
             <div class="logo-container">
-                <img src="https://www.kindpng.com/picc/m/56-565073_student-malefemale-student-portal-logo-png-transparent-png.png"
+                <img src="{{ url_for('static', filename='Sitare-University-Logo.webp') }}"
                     alt="Student Portal Logo" class="portal-logo">
                 <div class="title-container">
                     <span class="highlight">Student Feedback Portal [2024-25]</span>
@@ -428,7 +544,11 @@
         {% for course in courses %}
         <h2 class="course-header">{{ course.course_name }}</h2>
         <div id="form-container-{{ course.course_id }}" class="form-container">
-            <!-- Dynamic form content will be loaded here -->
+            <!-- Loading spinner -->
+            <div class="loading-spinner">
+                <div class="spinner"></div>
+                <p>Loading feedback form...</p>
+            </div>
         </div>
         {% endfor %}
     </div>
@@ -442,48 +562,83 @@
     </div>
 
     <footer>
-        <div class="footer text-center text-lg-start mt-5">
-            <p>© 2025 Sitare University. All rights reserved.</p>
-            <span>Temporary Campus: SRMCEM Lucknow, India</span>
-
+        <div class="container">
+            <p>&copy; 2025 Sitare University. All rights reserved.</p>
+            <p>Temporary Campus: SRMCEM Lucknow, India</p>
         </div>
     </footer>
     <script>
         $(document).ready(function () {
+            let formsLoaded = 0;
+            let totalForms = 0;
+
             // Fetch course IDs dynamically from the server
             $.ajax({
                 url: '/get_courses',
                 method: 'GET',
                 success: function (data) {
+                    totalForms = data.courses.length;
+                    
                     // Loop through each course and fetch the corresponding form
                     data.courses.forEach(course => {
                         const formContainer = $(`#form-container-${course.course_id}`);
+                        
                         // Fetch the form dynamically for the current course ID
                         $.get(`/get_form/${course.course_id}`, function (formData) {
                             formContainer.html(formData);
+                            formsLoaded++;
+                            
+                            // Enable submit button when all forms are loaded
+                            if (formsLoaded === totalForms) {
+                                $('#final-submit').prop('disabled', false);
+                            }
                         }).fail(function () {
-                            formContainer.html('<p>Form data not available.</p>');
+                            formContainer.html('<p style="color: #dc3545;">⚠️ Form data not available. Please refresh the page.</p>');
+                            formsLoaded++;
                         });
                     });
                 },
                 error: function () {
                     console.error("Failed to fetch courses.");
+                    alert("Failed to load courses. Please refresh the page.");
                 }
             });
 
             $("#final-submit").click(function () {
+                // Disable button to prevent double submission
+                const submitBtn = $(this);
+                if (submitBtn.prop('disabled')) return;
+                
                 const formsData = {};
                 let allFormsValid = true;
-                let incompleteForms = []; // To store incomplete form course IDs
+                let incompleteCourses = [];
+
+                // Remove previous validation styling
+                $(".form-container").removeClass("invalid");
+                $(".validation-message").removeClass("show");
 
                 // Loop through each form and validate
                 $(".form-container form").each(function () {
                     const form = $(this);
+                    const formContainer = form.closest('.form-container');
                     const course = form.data("course");
+                    const courseName = formContainer.prev('.course-header').text();
+                    
                     if (!form[0].checkValidity()) {
                         allFormsValid = false;
-                        incompleteForms.push(course); // Add the incomplete course ID to the array
-                        form[0].reportValidity(); // This shows the default validation messages
+                        incompleteCourses.push(courseName);
+                        
+                        // Add visual feedback
+                        formContainer.addClass("invalid");
+                        
+                        // Scroll to first invalid form
+                        if (incompleteCourses.length === 1) {
+                            $('html, body').animate({
+                                scrollTop: formContainer.offset().top - 100
+                            }, 500);
+                        }
+                        
+                        form[0].reportValidity();
                     } else {
                         formsData[`course_${course}`] = form.serializeArray().reduce((obj, item) => {
                             obj[item.name] = item.value;
@@ -493,35 +648,35 @@
                 });
 
                 if (!allFormsValid) {
-                    // Show an alert message if any form is incomplete
-                    alert("Please complete all required fields for the following courses ");
-                } else {
-                    // If all forms are valid, proceed with form submission
-                    $.post("/submit_all_forms", formsData, function (response) {
-                        if (response.status === "success") {
-                            alert("Your feedback is successfully saved!");
-
-                            // Clear all the forms
-                            $(".form-container form").each(function () {
-                                this.reset();
-                            });
-                            
-                            // Hide the submit button and show a message
-                            $("#final-submit").hide();
-                            $("#feedback-submitted-alert").text("Feedback submitted successfully. Thank you!").show();
-
-                            // Redirect to the index page after success
-                            window.location.href = "/redirect_page";
-                        } else if (response.status === "already_submitted") {
-                            $("#feedback-submitted-alert").show();
-                        } else {
-                            alert("Please try again.");
-                        }
-                    }).fail(function (xhr, status, error) {
-                        console.error("Submission error:", xhr.responseText);
-                        alert("Error in submitting feedback. Please try again.");
-                    });
+                    alert("⚠️ Please complete all required fields for:\n\n" + incompleteCourses.join("\n"));
+                    return;
                 }
+
+                // Disable button and show loading state
+                submitBtn.prop('disabled', true).text('Submitting...');
+
+                // Proceed with form submission
+                $.post("/submit_all_forms", formsData, function (response) {
+                    if (response.status === "success") {
+                        submitBtn.text('✓ Submitted!').css('background-color', '#28a745');
+                        
+                        // Show success message
+                        alert("✓ Your feedback has been successfully saved!");
+
+                        // Redirect to the redirect page
+                        window.location.href = "/redirect_page";
+                    } else if (response.status === "already_submitted") {
+                        alert("You have already submitted feedback today.");
+                        window.location.href = "/redirect_page";
+                    } else {
+                        alert("❌ Submission failed. Please try again.");
+                        submitBtn.prop('disabled', false).text('Submit All Forms');
+                    }
+                }).fail(function (xhr, status, error) {
+                    console.error("Submission error:", xhr.responseText);
+                    alert("❌ Error submitting feedback. Please check your connection and try again.");
+                    submitBtn.prop('disabled', false).text('Submit All Forms');
+                });
             });
         });
 
