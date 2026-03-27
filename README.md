@@ -20,8 +20,8 @@ This is a Flask-based web application designed to manage student feedback for co
 - **User Authentication**: Utilizes Google OAuth for secure login.
 - **Role-Based Access**: Different portals for students, teachers, and administrators.
 - **Feedback Submission**: Students can submit weekly feedback for their courses.
-- ** One time Submission**: Student can only submit feedback once.
-- ** View Previous Submissions**: Student can always view their previous submission."
+- **One time Submission**: Student can only submit feedback once.
+- **View Previous Submissions**: Student can always view their previous submission."
 - **Feedback Analysis**: Teachers can view aggregated feedback and statistics.
 - **Admin Overview**: Administrators can see feedback across all courses and instructors.
 - **Automated Reminders**: Scheduled email reminders for feedback submission.
